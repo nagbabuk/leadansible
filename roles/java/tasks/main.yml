@@ -10,5 +10,4 @@
    name: oracle-java8-installer
    state: present
    update_cache: yes
-~
 
