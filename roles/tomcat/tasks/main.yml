@@ -1,0 +1,22 @@
+---
+# tasks file for tomcat
+- name: Make sure that we can connect to the machine
+  ping:
+
+- name: download tomcat
+  get_url: url=http://www-eu.apache.org/dist/tomcat/tomcat-7/v7.0.85/bin/apache-tomcat-7.0.85.tar.gz dest=/opt/
+
+- name: Extract Tomcat archive
+  command: tar zxvf /opt//apache-tomcat-7.0.85.tar.gz -C /opt/ creates=/opt/apache-tomcat-7.0.85
+
+- name: Start Tomcat
+  command: nohup /opt/apache-tomcat-7.0.85/bin/startup.sh
+  become: true
+  become_user: tomcat
+
+- name: restarting tomcat
+  raw: nohup /opt/apache-tomcat-7.0.85/bin/shutdown.sh
+
+- name: restarting tomcat
+  raw: nohup /opt/apache-tomcat-7.0.85/bin/startup.sh
+
