@@ -1,0 +1,6 @@
+---
+# tasks file for schema
+- name: copy the schema jenkins to tomcat
+  copy:
+    src: /var/lib/jenkins/workspace/ant project/src/database/schema.sql
+    dest: /opt/

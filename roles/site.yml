@@ -1,5 +1,11 @@
 ---
 - hosts: all
+  user: vagrant
+  sudo: yes
   roles:
      - role: java
      - role: tomcat
+     - role: leadapp
+     - role: schema
+     - role: mysql
+

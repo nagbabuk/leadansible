@@ -1,0 +1,6 @@
+---
+# tasks file for lead
+- name: copy the lead app jenkins to tomcat
+  copy:
+    src: /var/lib/jenkins/workspace/ant project/dist/lib/leadapp.war
+    dest: /opt/apache-tomcat-7.0.85/webapps

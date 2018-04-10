@@ -1,0 +1,27 @@
+---
+- name: MySQL | install mysql packages
+  apt: pkg={{ item }} state=installed
+  become: true
+  with_items:
+   - mysql-client
+   - mysql-common
+   - mysql-server
+   - python-mysqldb
+
+- name: Create Application DB User
+  mysql_user: name=lead password=lead priv=*.*:ALL host='%' state=present
+
+- name: Create Application Database
+  mysql_db: name=leadapp state=present
+
+- name: Use the leadapp
+  raw: use=leadapp state=present
+
+- name: make sure DB schemas is present
+  mysql_db: login_user=lead login_password=lead name=leadapp state=present
+
+- name: import DB
+  mysql_db: login_user=lead login_password=lead name=leadapp state=import target=/opt/schema.sql
+
+- name: copy hibernetfile
+  template: src=hibernate.cfg.xml.j2 dest=/opt/apache-tomcat-7.0.85/webapps/leadapp/WEB-INF/classes/hibernate.cfg.xml
